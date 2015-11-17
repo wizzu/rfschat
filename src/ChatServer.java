@@ -1,18 +1,23 @@
 import java.io.IOException;
-import java.net.ServerSocket;
+import java.net.InetSocketAddress;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
 
 
 public class ChatServer {
   private int port;
-  private ServerSocket listenSocket;
+  private AllClients clients;
 
   public ChatServer(int pPort) {
     this.port = pPort;
+    clients = new AllClients();
   }
 
   public void runServer() throws IOException {
+    ServerSocketChannel serverSocketChannel = null;
     try {
-      listenSocket = new ServerSocket(port);
+      serverSocketChannel = ServerSocketChannel.open();
+      serverSocketChannel.socket().bind(new InetSocketAddress(port));
     } catch (IOException e) {
       System.out.println("Error opening socket on port " + port + ", failed to start server");
       throw e;
@@ -22,7 +27,11 @@ public class ChatServer {
     boolean running = true;
     while (running) {
       try {
-        listenSocket.accept();
+        SocketChannel socketChannel =
+            serverSocketChannel.accept();
+        Client newClient = new Client(socketChannel);
+        newClient.setUsername(clients.generateRandomUniqueUsername());
+        clients.addClient(newClient);
       } catch (IOException e) {
         e.printStackTrace();
         System.out.println("Error accepting new connection");
@@ -30,7 +39,7 @@ public class ChatServer {
     }
 
     try {
-      listenSocket.close();
+      serverSocketChannel.close();
     } catch (IOException e) {
       System.out.println("Error closing socket on port " + port + " during stop server");
       throw e;
