@@ -7,22 +7,24 @@ RFSChat is a simple multiuser chat application for demo purposes.
 Building
 --------
 
-The program can be compiled using the compile.sh shell script.
+The program can be compiled using the simple compile.sh shell script.
+
+Manually running "javac -d bin src/*.java" is also possible.
 
 
 Running
 -------
 
-The program can be started using the run.sh shell script.
+The program can be started using the simple run.sh shell script.
 
-Manually running "java -cp <classdir>/ChatServer <listenport>" is also possible.
+Manually running "java -cp [classdir]/ChatServer [listenport]" is also possible.
 
 
 Using
 -----
 
 After the program has been started, clients can connect to the server on the
-port specified during server startup. E.g. "telnet <server-hostname> 1234".
+port specified during server startup. E.g. "telnet [server-hostname] 1234".
 
 Clients can send simple one-line text messages to the server.
 
