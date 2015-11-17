@@ -22,6 +22,7 @@ public class ChatServer {
     clients.addClient(newClient);
     clientInputProcessor.addClient(newClient);
     newClient.sendMessage("Welcome, your nickname is " + newClient.getUsername());
+    newClient.sendMessage("Use command 'HELP' to get list of commands");
     clients.sendMessageToAll(newClient.getUsername() + " has joined the chat", newClient);
     System.out.println("New client connected from " + pSocketChannel.getRemoteAddress().toString() + ", id " + newClient.getId() + ", assigned username " + newClient.getUsername());
   }
