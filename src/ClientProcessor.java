@@ -70,10 +70,10 @@ public class ClientProcessor implements Runnable {
   private void handleCommand(String string, Client client) {
     if ("HELP".equals(string)) {
       client.sendMessage("Available commands:");
-      client.sendMessage("HELP - this help text");
-      client.sendMessage("NICK - change nickname");
-      client.sendMessage("WHO - list of all connected users");
-      client.sendMessage("QUIT - disconnect from service");
+      client.sendMessage("HELP  -  this help text");
+      client.sendMessage("NICK <newname>  -  change your nickname");
+      client.sendMessage("WHO  -  list all connected users");
+      client.sendMessage("QUIT  -  disconnect from service");
     } else if ("WHO".equals(string)) {
       client.sendMessage("Connected users:");
       for (Client c : clients.getClients()) {
